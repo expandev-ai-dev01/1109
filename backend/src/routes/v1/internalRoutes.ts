@@ -8,10 +8,11 @@
  */
 
 import { Router } from 'express';
+import taskRoutes from './taskRoutes';
 
 const router = Router();
 
-// Internal routes will be added here as features are implemented
-// Example: router.use('/task', taskRoutes);
+// Task management routes
+router.use('/task', taskRoutes);
 
 export default router;
