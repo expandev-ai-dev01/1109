@@ -7,10 +7,17 @@
 
 import axios, { AxiosInstance } from 'axios';
 
+const getEnvVar = (key: string, defaultValue: string): string => {
+  if (typeof import.meta.env !== 'undefined' && import.meta.env[key]) {
+    return import.meta.env[key];
+  }
+  return defaultValue;
+};
+
 export const apiConfig = {
-  baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000',
-  version: import.meta.env.VITE_API_VERSION || 'v1',
-  timeout: parseInt(import.meta.env.VITE_API_TIMEOUT || '30000'),
+  baseUrl: getEnvVar('VITE_API_URL', 'http://localhost:3000'),
+  version: getEnvVar('VITE_API_VERSION', 'v1'),
+  timeout: parseInt(getEnvVar('VITE_API_TIMEOUT', '30000')),
 
   get externalUrl(): string {
     return `${this.baseUrl}/api/${this.version}/external`;

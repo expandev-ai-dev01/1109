@@ -14,7 +14,14 @@ let pool: sql.ConnectionPool | null = null;
 
 export const getPool = async (): Promise<sql.ConnectionPool> => {
   if (!pool) {
-    pool = await sql.connect(config.database);
+    pool = await sql.connect({
+      server: config.database.host,
+      port: config.database.port,
+      user: config.database.user,
+      password: config.database.password,
+      database: config.database.database,
+      options: config.database.options,
+    });
   }
   return pool;
 };
